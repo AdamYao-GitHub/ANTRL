@@ -1,0 +1,33 @@
+{
+  "name": "antrl",
+  "version": "1.0.0",
+  "description": "ANTRL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "devServer": "webpack-dev-server --hot",
+    "dev": "npm run devServer -- --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdamYao-GitHub/ANTRL.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdamYao-GitHub/ANTRL/issues"
+  },
+  "homepage": "https://github.com/AdamYao-GitHub/ANTRL#readme",
+  "devDependencies": {
+    "antlr4ts": "^0.5.0-alpha.3",
+    "antlr4ts-cli": "^0.5.0-alpha.3",
+    "babel-loader": "^8.0.6",
+    "file-loader": "^4.0.0",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.3",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5",
+    "webpack-dev-server": "^3.7.2"
+  }
+}

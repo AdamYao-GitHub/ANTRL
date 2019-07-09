@@ -1,0 +1,27 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+      "allowJs": true,
+      "moduleResolution": "Node",
+      "esModuleInterop": true,
+      "module": "ES6",
+      "noImplicitAny": true,
+      "preserveConstEnums": true,
+      "removeComments": true,
+      "target": "ES5",
+      "outDir": "./dist/",
+      "allowSyntheticDefaultImports": true,
+      "sourceMap": true,
+      "alwaysStrict": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true
+    },
+    "include": [
+      "./src/**/*"
+    ],
+    "exclude": [
+      "node_modules",
+      "typings/browser.d.ts",
+      "typings/browser"
+    ]
+  }
