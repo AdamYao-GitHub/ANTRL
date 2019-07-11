@@ -1,7 +1,8 @@
 import { ANTLRInputStream, CommonTokenStream } from 'antlr4ts';
 import { bodlLexer } from '../bodlLexer';
-import { bodlParser } from '../bodlParser'
-import { parse } from 'url';
+import { bodlParser } from '../bodlParser';
+import {BodlVisitor} from  './boldVisitor';
+
 (() => {
     const testCode = `businessobject SalesOrder {
     element id: Integer;
@@ -18,26 +19,11 @@ import { parse } from 'url';
     let lexer = new bodlLexer(inputStream);
     let tokenStream = new CommonTokenStream(lexer);
     let parser = new bodlParser(tokenStream);
-
+    // let a = new bodlVisitor()
     let tree = parser.program();
-    // tree.getTokens();
+
+    let vistor = new BodlVisitor();
+    vistor.visit(tree);
+
     document.write(tree.toStringTree());
 })();
-
-
-    //   const inputStream = new ANTLRInputStream(ruleString);
-    //   const lexObject = new lexer.scopeLexer(inputStream);
-    //   const tokenStream = new CommonTokenStream(lexObject);
-    //   const parseObject = new parser.scopeParser(tokenStream);
-    //   const result = parseObject.file();
-    //   const evaluator = new ScopeEvaluator();
-    //   const walker = new ParseTreeWalker();
-    //   console.log(' type of ' , evaluator);
-    //   walker.walk(evaluator as ParseTreeListener, result);
-    //     // Parse and execute the code.
-    //     console.log(' p :', parseObject);
-    //   console.log(' result :', result.text);
-
-// Parse the input, where `compilationUnit` is whatever entry point you defined
-// let tree = parser.action();
-// })();
