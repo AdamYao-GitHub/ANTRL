@@ -20,7 +20,8 @@ import { parse } from 'url';
     let parser = new bodlParser(tokenStream);
 
     let tree = parser.program();
-    document.write(tree.toString());
+    // tree.getTokens();
+    document.write(tree.toStringTree());
 })();
 
 
