@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "g4build": "antlr4ts -visitor bodl.g4",
+    "runG4": "node ./dist/src/index.js",
+    "g4build": "antlr4ts -visitor ./bodl.g4",
     "build": "webpack",
     "devServer": "webpack-dev-server --hot",
     "dev": "npm run devServer -- --watch"
@@ -30,5 +31,8 @@
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5",
     "webpack-dev-server": "^3.7.2"
+  },
+  "dependencies": {
+    "antlr4": "^4.7.2"
   }
 }

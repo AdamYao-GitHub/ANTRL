@@ -42,6 +42,6 @@ module.exports = {
   },
   devServer: {
     hot: true,
-    port: 4500
+    port: 5500
   }
 };
