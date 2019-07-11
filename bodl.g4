@@ -15,3 +15,4 @@ WS : [ \t\r\n]+ -> skip ; // Define whitespace rule, toss it out
 PKG : ([a-zA-Z]+'.')+[a-zA-Z]+ ;
 END : ';' ;
 ID : [a-zA-Z]+ ;
+
