@@ -24,6 +24,6 @@ import {BodlVisitor} from  './boldVisitor';
 
     let vistor = new BodlVisitor();
     vistor.visit(tree);
-
-    document.write(tree.toStringTree());
+    // document.getElementById("app").innerHTML += tree.toStringTree();
+    // document.write(tree.toStringTree());
 })();
