@@ -8,6 +8,7 @@
     "runG4": "node ./dist/src/index.js",
     "g4build": "antlr4ts -visitor ./bodl.g4",
     "build": "webpack",
+    "buildTS": "tsc",
     "devServer": "webpack-dev-server --hot",
     "dev": "npm run devServer -- --watch"
   },
