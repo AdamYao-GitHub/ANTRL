@@ -1,54 +1,66 @@
 import { bodlVisitor } from '../bodlVisitor'
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor'
-import { ProgramContext, ElementContext, BobodyContext, BoContext } from '../bodlParser'
-import businessObject from "./BOES/BO";
+import { ProgramContext, BoContext, ElementContext, BobodyContext, NodeContext, NodebodyContext } from '../bodlParser'
+import { log } from 'util';
+import BOJsonFactory from './BOES/BOJsonFactory';
+import node from './BOES/Indicator';
 
 // Extend the AbstractParseTreeVisitor to get default visitor behaviour
-export class BodlVisitor extends AbstractParseTreeVisitor<number> implements bodlVisitor<number> {
+export class BodlVisitor extends AbstractParseTreeVisitor<object> implements bodlVisitor<object> {
 
-    defaultResult() {
-        return 0
+  protected defaultResult(): object {
+    throw new Error("Method not implemented.");
+  }
+
+  private boName: string;
+
+  visitProgram(context: ProgramContext): object {
+    return super.visit(context.bo());
+  }
+
+  visitBo(context: BoContext): object {
+    this.boName = context.ID().text;
+    const bo = BOJsonFactory.newBusinessObject(this.boName);
+    Object.assign(bo, super.visit(context.bobody()));
+         
+    return bo;
+  }
+
+  visitElement(context: ElementContext): object {
+    const elementName = context.ID()[0].text;
+    const element = BOJsonFactory.newElement(elementName);
+    return element;
+  }
+
+  visitBobody(context: BobodyContext): object {
+    const boBody:any = {Nodes:[], Elements:[]};
+    for (const elementContext of context.element()) {  
+      boBody.Elements.push(super.visit(elementContext));      
     }
-
-    aggregateResult(aggregate: number, nextResult: number) {
-        return aggregate + nextResult
+    for (const nodeContext of context.node()) {      
+      boBody.Nodes.push(super.visit(nodeContext));
     }
+    return boBody;
+  }
 
-    visitProgram(context: ProgramContext): number {
-        return 1 + super.visitChildren(context);
+  visitNode(context: NodeContext): object {
+      const nodeName = context.ID().text;
+      const node = BOJsonFactory.newNode(nodeName, this.boName);
+      Object.assign(node, super.visit(context.nodebody()));
+      return node;
+  }
+
+  visitNodebody(context: NodebodyContext): object {
+    const nodeBody:any = {Nodes:[], Elements:[]}
+    for (const elementContext of context.element()) {
+      nodeBody.Elements.push(super.visit(elementContext));      
     }
-
-    //   visitBobody?: (ctx: BobodyContext) 
-    visitBo(context: BoContext): number {
-        // const childCount = context.childCount;
-        // for (let i = 0; i < childCount; i++) {
-        var a = new businessObject(context.ID().text);
-        // const bobody = context.getChild(0);
-            // this.visit()
-            // bobody.get
-        document.getElementById("app").innerHTML += "  BO Name: " + JSON.stringify(a);
-        // }
-
-
-        // document.getElementById("app").innerHTML += "  boBodyReturn: " + super.visitChildren(context);
-        return 1 + super.visitChildren(context);
+    for (const nodeContext of context.node()) {      
+      nodeBody.Nodes.push(super.visit(nodeContext));
     }
-
-    visitBobody(context: BobodyContext): number{
-        // document.getElementById("app").innerHTML += "   BOBODY parent: " + context.;
-       var a =  context.getChild(0).text;
-    //    a.ID().text
-        // super.visit(a);
-        return 1 + super.visitChildren(context);
-    }
-
-    // visitNode(){}
-
-    visitElement(context: ElementContext): number {
-        //   document.write(context.toStringTree());
-        document.getElementById("app").innerHTML += "  Element: " + context.toStringTree();
-        return 1 + super.visitChildren(context);
-    }
+    return nodeBody;
+  }
+  
 }
 
 // Create the visitor

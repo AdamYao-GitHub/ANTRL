@@ -10,6 +10,9 @@ import {BodlVisitor} from  './boldVisitor';
     node Items{
         element itemId: Integer;
         element itemName: String;
+        node Content{
+            element contentId: Integer;
+        }
     }
 }`
 
@@ -23,7 +26,7 @@ import {BodlVisitor} from  './boldVisitor';
     let tree = parser.program();
 
     let vistor = new BodlVisitor();
-    vistor.visit(tree);
-    // document.getElementById("app").innerHTML += tree.toStringTree();
+    const boJson = vistor.visit(tree);
+    document.getElementById("app").innerHTML += JSON.stringify(boJson);
     // document.write(tree.toStringTree());
 })();

@@ -1,6 +1,6 @@
 import businessObject from "./BO"
 
-export default class BusinessObjectFacade {
+export default class BOJsonFactory {
 
     public static newBusinessObject(boName: string, boNamesapce?: string): any {
         return {
