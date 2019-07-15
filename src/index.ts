@@ -1,7 +1,11 @@
 import { ANTLRInputStream, CommonTokenStream } from 'antlr4ts';
 import { bodlLexer } from '../bodlLexer';
 import { bodlParser } from '../bodlParser';
-import {BodlVisitor} from  './boldVisitor';
+import { BodlVisitor } from './boldVisitor';
+
+import businessObject from "./BOES/BO"
+import Node from "./BOES/Node"
+import {MetaObjectKey, Indicator} from "./BOES/Interfaces"
 
 (() => {
     const testCode = `businessobject SalesOrder {
@@ -15,6 +19,7 @@ import {BodlVisitor} from  './boldVisitor';
         }
     }
 }`
+    // document.getElementById("inputVal").innerHTML += testCode;
 
     const testHelloWorld = "Hello World";
     // Create the lexer and parser
@@ -22,11 +27,10 @@ import {BodlVisitor} from  './boldVisitor';
     let lexer = new bodlLexer(inputStream);
     let tokenStream = new CommonTokenStream(lexer);
     let parser = new bodlParser(tokenStream);
-    // let a = new bodlVisitor()
     let tree = parser.program();
 
     let vistor = new BodlVisitor();
     const boJson = vistor.visit(tree);
-    document.getElementById("app").innerHTML += JSON.stringify(boJson);
+    document.getElementById("AntlrVal").innerHTML += JSON.stringify(boJson);
     // document.write(tree.toStringTree());
 })();

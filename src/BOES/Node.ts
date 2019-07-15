@@ -1,32 +1,51 @@
-import Indicator from "./Indicator";
-import Key from "./Key";
-export default class node {
-    Elements: Array<Object>
-    Key: Object
-    CategoryCode: string
-    EnabledIndicator: Indicator
-    CreateEnabledIndicator: Indicator
-    UpdateEnabledIndicator: Indicator
-    DeleteEnabledIndicator: Indicator
-    ReadOnlyOperationIndicator: Indicator
-    TransientNodeIDIndicator: Indicator
-    SeparatelyLockableIndicator: Indicator
 
-    constructor(nodeName: string, BoName: string, parentNode?: string, CategoryCode?: string, enabledINdicator?: object, CreateEnabledIndicator?: object, UpdateEnabledIndicator?: object, DeleteEnabledIndicator?: object, ReadOnlyOperationIndicator?: object, TransientNodeIDIndicator?: object, SeparatelyLockableIndicator?: object) {
-        if (nodeName && BoName) {
+import { Indicator, MetaObjectKey } from "./Interfaces"
+
+const defaultIndicator: Indicator = {
+    Indicator: false,
+    FinalIndicator: false,
+    RedefinedIndicator: null
+}
+
+export default class Node {
+    Elements: Array<Object>
+    Key: Object = {}
+    CategoryCode: string
+    EnabledIndicator: Indicator = defaultIndicator
+    CreateEnabledIndicator: Indicator = defaultIndicator
+    UpdateEnabledIndicator: Indicator = defaultIndicator
+    DeleteEnabledIndicator: Indicator = defaultIndicator
+    ReadOnlyOperationIndicator: Indicator = defaultIndicator
+    TransientNodeIDIndicator: Indicator = defaultIndicator
+    SeparatelyLockableIndicator: Indicator = defaultIndicator
+
+    constructor(nodeOptions: {
+        metaObjectKey: MetaObjectKey,
+        parentNode?: string,
+        CategoryCode?: string,
+        EnabledINdicator?: Indicator,
+        CreateEnabledIndicator?: Indicator,
+        UpdateEnabledIndicator?: Indicator,
+        DeleteEnabledIndicator?: Indicator,
+        ReadOnlyOperationIndicator?: Indicator,
+        TransientNodeIDIndicator?: Indicator,
+        SeparatelyLockableIndicator?: Indicator
+    }) {
+        if (nodeOptions.metaObjectKey) {
             Object.assign(this.Key, {
-                MetaObjectKey: new Key(nodeName, BoName),
-                Name: nodeName,
-                ParentNode: parentNode
+                MetaObjectKey: nodeOptions.metaObjectKey,
+                Name: nodeOptions.metaObjectKey.Name,
+                ParentNode: nodeOptions.parentNode
             })
         }
-        if (CategoryCode) this.CategoryCode = CategoryCode
-        Object.assign(this.EnabledIndicator, new Indicator(enabledINdicator || {}));
-        Object.assign(this.CreateEnabledIndicator, new Indicator(CreateEnabledIndicator || {}));
-        Object.assign(this.UpdateEnabledIndicator, new Indicator(UpdateEnabledIndicator || {}));
-        Object.assign(this.DeleteEnabledIndicator, new Indicator(DeleteEnabledIndicator || {}));
-        Object.assign(this.ReadOnlyOperationIndicator, new Indicator(ReadOnlyOperationIndicator || {}));
-        Object.assign(this.TransientNodeIDIndicator, new Indicator(TransientNodeIDIndicator || {}));
-        Object.assign(this.SeparatelyLockableIndicator, new Indicator(SeparatelyLockableIndicator || {}));
+        if (nodeOptions.CategoryCode) this.CategoryCode = nodeOptions.CategoryCode
+       
+        Object.assign(this.EnabledIndicator, defaultIndicator, nodeOptions.EnabledINdicator);
+        Object.assign(this.CreateEnabledIndicator, defaultIndicator, nodeOptions.CreateEnabledIndicator);
+        Object.assign(this.UpdateEnabledIndicator, defaultIndicator, nodeOptions.UpdateEnabledIndicator);
+        Object.assign(this.DeleteEnabledIndicator, defaultIndicator, nodeOptions.DeleteEnabledIndicator);
+        Object.assign(this.ReadOnlyOperationIndicator, defaultIndicator, nodeOptions.ReadOnlyOperationIndicator);
+        Object.assign(this.TransientNodeIDIndicator, defaultIndicator, nodeOptions.TransientNodeIDIndicator);
+        Object.assign(this.SeparatelyLockableIndicator, defaultIndicator, nodeOptions.SeparatelyLockableIndicator);
     }
 }

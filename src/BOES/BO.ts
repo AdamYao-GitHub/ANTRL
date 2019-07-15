@@ -1,15 +1,21 @@
 /**
  * Define the data template of the business object
  */
-import Node from "./Node";
-import BOKey from "./Key";
+import {Indicator, MetaObjectKey} from "./Interfaces"
+import Node from "./Node"
 
 export default class businessObject {
-    key: BOKey;
+    Key: MetaObjectKey = {
+        Name: "",
+        Namespace: ""
+    };
     Nodes: Array<Node>;
     
     constructor(boName: string, boNamesapce?: string) {
-        this.key = new BOKey(boName, boNamesapce || "http://sap.com/x4/Metamodel");
-        this.Nodes = [new Node("Root", boName)]
+        Object.assign(this.Key, {
+            Name: boName,
+            Namespa: boNamesapce || "http://sap.com/x4/Metamodel"
+        });
+        this.Nodes = []
     }
 }

@@ -6,7 +6,30 @@
 </head>
 
 <body>
-  <div id="app"></div>
+  <div id="input">
+    <h2>Input:</h2>
+    <div
+      style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+      <pre style="margin: 0; line-height: 125%">businessobject SalesOrder {
+        element id: Integer;
+        element name: String;
+        node Items{
+            element itemId: Integer;
+            element itemName: String;
+            node Content{
+                element contentId: Integer;
+            }
+        }
+    }
+    </pre>
+    </div>
+  </div>
+  <div id="app">
+    <h2>Output:</h2>
+    <div id="AntlrVal"></div>
+    <h2>Process:</h2>
+    <div id="process"></div>
+  </div>
 </body>
 <script src="main.js"></script>
 
