@@ -8,10 +8,11 @@
 # install dependencies
 $ npm i --verbose
 
+# Generate related files based on the parse tree
+$ npm run g4build
+
 # start react app with webpack
 $ npm run dev
 
-# Generate related files based on the parse tree
-$ npm run g4build
 
 ```
